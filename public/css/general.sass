@@ -1,0 +1,343 @@
+$verde: #91C73D
+$azul: #0067AB
+$marino: #455560
+$borde: #DDDDDD
+
+
+@import "mixins", "reset"
+
+@include font-face(Ubuntu_m, "../fonts/Ubuntu-R", null, null, ttf)
+@include font-face(Ubuntu_c, "../fonts/Ubuntu-C", null, null, ttf)
+@include font-face(Ubuntu_b, "../fonts/Ubuntu-B", null, null, ttf)
+@include font-face(Ubuntu_l, "../fonts/Ubuntu-L", null, null, ttf)
+
+.btn_navbar
+	float: right
+	padding: 3px 0 0 0
+	div
+		vertical-align: super
+		display: inline-block
+		padding: 0 3px
+	a
+		color: white
+		text-decoration: none
+
+
+.contenido
+	width: 100%
+
+.cosas_nav
+	display: inline-block
+
+.navbar
+	background: $verde
+	color: white
+
+.centrado
+	text-align: center
+
+.min_navbar
+	max-width: 850px
+	padding: 3px 0
+	margin: auto
+
+.link_social
+	width: 25px
+	display: inline-block
+	img
+		width: 100%
+
+.logo_cotas_jumbotron
+	margin: 30px 0
+
+.sociales
+	margin-top: 2px
+
+/* DROPDOWN NAVBAR */
+#primary_nav_wrap
+	width: 800px
+	text-align: center
+	margin: 0 auto
+	padding: 10px 0
+	border-top: 1px solid $borde
+	border-bottom: 1px solid $borde
+
+#primary_nav_wrap ul
+	list-style: none
+	display:inline-block
+	margin: 0
+	padding: 0
+
+#primary_nav_wrap ul a
+	display: inline-block
+	color: $azul
+	text-decoration: none
+	font-size: 1em
+	line-height: 32px
+	padding: 0 15px
+	font-family: Ubuntu_m ,Helvetica,Arial,sans-serif
+
+#primary_nav_wrap ul li
+	position: relative
+	display: inline-block
+	margin: 0
+	padding: 0
+	text-align: left
+
+#primary_nav_wrap ul li.current-menu-item
+	background: #ddd
+
+#primary_nav_wrap ul li:hover
+	background: #f6f6f6
+
+#primary_nav_wrap ul ul
+	display: none
+	position: absolute
+	top: 100%
+	left: 0
+	background: #fff
+	padding: 0
+	z-index: 9999
+
+#primary_nav_wrap ul ul li
+	width: 300px
+	border-bottom: 1px solid $borde
+	top: 50%
+	&:last-child
+		border-bottom: none
+
+#primary_nav_wrap ul ul a
+	line-height: 120%
+	padding: 10px 15px
+	color: $verde
+	font-family: Ubuntu_c
+
+#primary_nav_wrap ul ul ul
+	top: 0
+	left: 100%
+
+#primary_nav_wrap ul li:hover > ul
+	display: inline-block
+
+.galeria_slide
+	width: 100%
+	margin: 25px 0 0 0
+	div img
+		width: 100%
+
+.descripcion
+	max-width: 600px
+	padding-top: 20px
+	margin: 0 auto
+	font-size: 0.8em
+	color: $marino
+	line-height: 120%
+	font-family: Ubuntu_l
+	span
+		font-family: Ubuntu_b
+		font-size: 1.1em
+
+.wrap_fancy
+	max-width: 1070px
+	margin: 0 auto
+	text-align: center
+	padding-top: 40px
+
+.titulo, .titulo_verde
+	font-family: Ubuntu_b
+
+.titulo
+	color: $azul
+
+.titulo_verde
+	color: $verde
+
+
+.fancy 
+    display: table
+    white-space: nowrap
+    &:before, &:after
+      border-top: 0.07em solid $marino
+      content: ''
+      display: table-cell
+      position: relative
+      top: 0.5em
+      opacity: 0.2
+      width: 50%
+    &:before
+    	right: 1.5%
+    &:after
+    	left: 1.5%
+
+.circulito_pedorro
+	width: 50px
+	margin: 10px auto
+	img
+		width: 100%
+
+.wrap_cuadritos_pedorros
+	max-width: 1100px
+	display: flex
+	justify-content: center
+	margin: 40px auto
+	border-top: 1px solid $borde
+	border-bottom: 1px solid $borde
+
+.cuadrito_pedorro
+	text-align: center
+	flex-basis: 200px
+	margin: 30px 0
+	padding: 0 15px
+	border-right: 1px solid $borde
+	&:last-child
+		border-right: none
+	a
+		text-decoration: none
+
+.titulos_trabajos
+	color: $azul
+	font-family: Ubuntu_b
+	font-size: 0.8em
+
+.consejo_agua
+	width: 100%
+	background-color: $verde
+	padding: 10px 0
+	text-align: center
+	color: $azul
+	font-size: 1.2em
+	margin-top: 50px
+
+//NOTICIAS
+.noticias
+	padding-bottom: 40px
+.noticias:last-child
+	padding-bottom: 5px
+
+.noticias_cotas
+	color: $verde
+	font-size: 24px
+
+.titulo_noticias
+	font-size: 18px
+	color: $azul
+	padding-bottom: 5px
+	font-family: Ubuntu_m
+	border-bottom: 1px solid $borde
+
+.tablero_noticias
+	max-width: 900px
+	margin: 20px auto
+	border: 1px solid $borde
+	padding: 20px
+
+.fecha_noticia
+	font-family: Ubuntu_c
+	color: $marino
+	padding: 10px 0
+
+.texto_imagen
+	display: inline-block
+	width: 47%
+	border: 1px solid $borde
+	padding: 5px
+	vertical-align: top
+
+.texto_noticia
+	text-align: justify
+	font-family: Ubuntu_l
+	color: $marino
+	font-size: 14px
+	height: 100%
+	padding: 10px 10px 0 10px
+
+.imagen_noticia
+	img
+		width: 100%
+
+.wrap_texto_imagen_noticia
+	height: 318px
+
+//GALERIA
+.wrap_galeria
+	max-width: 1000px
+	margin: 20px auto
+	padding: 10px
+	border: 1px solid $borde
+	text-align: center
+
+.wrap_imagen
+	width: 230px
+	margin: 5px
+	display: inline-block
+	border: 1px solid $borde
+	img
+		width: 100%
+
+// FOOTER	
+
+.footer
+	background-color: $azul
+	display: flex
+	justify-content: center
+	padding: 60px 0
+	color: white
+	font-family: Ubuntu_l
+	flex-wrap: wrap
+	div
+		width: 250px
+		img
+			width: 200px
+		a
+			color: white
+			text-decoration: none
+.titulo_footer
+	color: $verde
+	padding: 10px 0 25px 0
+	font-family: Ubuntu_b
+
+#mapa_cotas
+	width: 90%
+	height: 400px
+	margin: 30px auto
+	border: 1px solid $borde
+	padding: 20px
+
+// BOTON PARA IR ARRIBA
+
+#back-top
+	position: fixed
+	bottom: 60px
+	right: 50px
+
+
+#back-top a 
+	width: 80px
+	display: block
+	text-align: center
+	text-transform: uppercase
+	text-decoration: none
+	color: #bbb
+
+	/* transition */
+	-webkit-transition: 1s
+	-moz-transition: 1s
+	transition: 1s
+
+#back-top a:hover 
+	color: #000
+
+
+/* arrow icon (san tag) */
+#back-top img 
+	width: 80px
+	height: 80px
+	display: block
+	margin-bottom: 7px
+
+	/* transition */
+	-webkit-transition: 1s
+	-moz-transition: 1s
+	transition: 1s
+
+
