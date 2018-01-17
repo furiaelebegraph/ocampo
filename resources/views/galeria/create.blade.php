@@ -23,8 +23,8 @@
                             </form>
                         </div>
                         <div class="col-12 col-centered">
-                            <form method = 'get' action = '{!!url("inmueble")!!}'>
-                                <button class = 'btn btn-danger'>Ver todos los Inmuebles</button>
+                            <form method = 'get' action = '{!!url("galeria")!!}'>
+                                <button class = 'btn btn-danger'>Ver todos los galerias</button>
                             </form>
                         </div>
                         
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-xs-12 col-md-8 col-centered">
                     <div class='titulo_seccion'>
-                        Crear Inmueble
+                        Crear galeria
                     </div class='titulo_seccion'>
                 </div>
 
@@ -41,7 +41,7 @@
                 @endforeach
 
                 <div class="col-xs-12 col-md-8 col-centered formularios">
-                    <form method = 'POST' action = '{!!url("inmueble")!!}' enctype="multipart/form-data">
+                    <form method = 'POST' action = '{!!url("galeria")!!}' enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <meta name="_token" content="{!! csrf_token() !!}">
                         <div class="form-group">
@@ -77,15 +77,6 @@
                             <select class="form-control" name="activo">
                                 <option selected="selected"  value="si">Si</option>
                                 <option value="no">No</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="orden">Categoria</label>
-                            <select id='cate' class="form-control" name="id_categoria">
-                                <option value="" selected disabled style="display:none">Seleciona una categoria</option>
-                                @foreach($categorias as $categoria)
-                                    <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
-                                @endforeach
                             </select>
                         </div>
                         <div class="sub-main_crear">

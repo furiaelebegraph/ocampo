@@ -24,7 +24,7 @@
                                 </form>
                             </div>
                             <div class="col-6 ">
-                                <form class = 'col s3' method = 'get' action = '{!!url("inmueble")!!}/create'>
+                                <form class = 'col s3' method = 'get' action = '{!!url("galeria")!!}/create'>
                                     <div class="sub-main">
                                       <button class="button-two btn btn-primary" type = 'submit'><span class="texto_blanco">Crear nuevo Inmueble</span></button>
                                     </div>
@@ -50,29 +50,29 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach($inmuebles as $inmueble) 
+                                    @foreach($galerias as $galeria) 
                                     <tr>
-                                        <td>{!!$inmueble->nombre!!}</td>
+                                        <td>{!!$galeria->nombre!!}</td>
                                         <td>
-                                            {{$inmueble->cate->nombre}}
+                                            {{$galeria->cate->nombre}}
                                         </td>
                                         <td> 
-                                            <img class='imagen_index' style='width:80px;' src="{!!$inmueble->imagen!!}" alt=""> 
+                                            <img class='imagen_index' style='width:80px;' src="{!!$galeria->imagen!!}" alt=""> 
                                         </td>
                                         <td>
-                                            {{$inmueble->precio}}
+                                            {{$galeria->precio}}
                                         </td>
                                         <td>
-                                            {{$inmueble->orden}}
+                                            {{$galeria->orden}}
                                         </td>
                                         <td>
-                                            <a href="/inmueble/{!!$inmueble->id!!}/delete" class = 'delete btn btn-danger btn-xs'><i class = 'material-icons'>Borrar</i></a>
+                                            <a href="/galeria/{!!$galeria->id!!}/delete" class = 'delete btn btn-danger btn-xs'><i class = 'material-icons'>Borrar</i></a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('inmueble.edit', $inmueble->id) }}" class = 'viewEdit btn btn-primary btn-xs' data-link = '/subcategoria/{!!$inmueble->id!!}/edit'><i class = 'material-icons'>edit</i></a>
+                                            <a href="{{ route('galeria.edit', $galeria->id) }}" class = 'viewEdit btn btn-primary btn-xs' data-link = '/subcategoria/{!!$galeria->id!!}/edit'><i class = 'material-icons'>edit</i></a>
                                         </td>
                                         <td>
-                                            <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/subcategoria/{!!$inmueble->id!!}'><i class = 'material-icons'>info</i></a>
+                                            <a href = '#' class = 'viewShow btn btn-warning btn-xs' data-link = '/subcategoria/{!!$galeria->id!!}'><i class = 'material-icons'>info</i></a>
                                         </td>
                                     </tr>
                                     @endforeach 
@@ -80,7 +80,7 @@
                             </table>
                         </div>
                     </div>
-                    {!! $inmuebles->links() !!}
+                    {!! $galerias->links() !!}
                 </div>
             </div>
         </div>

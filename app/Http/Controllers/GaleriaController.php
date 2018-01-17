@@ -16,8 +16,8 @@ class GaleriaController extends Controller
     public function index()
     {
         $title = 'Index - Imagenes';
-        $inmuebles = Galeria::all();
-        return view('galeria.index', compact('inmuebles', 'title'));
+        $galerias = Galeria::all();
+        return view('galeria.index', compact('galerias', 'title'));
     }
 
     /**
@@ -28,8 +28,8 @@ class GaleriaController extends Controller
     public function create()
     {
         $title = 'Crear Galeria';
-        $inmueble = Galeria::findOrfail($id);
-        return view('galeria.create', compact('title', 'inmueble'));
+        $galeria = Galeria::findOrfail($id);
+        return view('galeria.create', compact('title', 'galeria'));
     }
 
     /**
@@ -55,7 +55,7 @@ class GaleriaController extends Controller
 
                 $imagen->nombre = $request->nombre;
 
-                $imagen->inmueble_id = $request->inmuebles_id;
+                $imagen->inmueble_id = $request->galerias_id;
 
                 $imagen->orden = $request->orden;
 
