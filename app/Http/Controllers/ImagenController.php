@@ -53,7 +53,6 @@ class ImagenController extends Controller
                 $imagen->imagen = 'img/ima/'.$filename;
             }
 
-                $imagen->nombre = $request->nombre;
 
                 $imagen->galeria_id = $request->galeria_id;
 
@@ -68,7 +67,7 @@ class ImagenController extends Controller
      * @param  \App\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function show(Imagen $imagen)
+    public function show($id,Request $request)
     {
         $imagen = Ima::findOrfail($id);
         $inmueble = Galeria::all();
@@ -81,7 +80,7 @@ class ImagenController extends Controller
      * @param  \App\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function edit(Imagen $imagen)
+    public function edit($id,Request $request)
     {
         $imagen = Ima::findOrfail($id);
         $inmueble = Galeria::all();
@@ -95,7 +94,7 @@ class ImagenController extends Controller
      * @param  \App\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Imagen $imagen)
+    public function update($id,Request $request)
     {
             $imagen = Ima::findOrfail($id);
             if ($request->hasFile('imagen')) {
@@ -129,7 +128,7 @@ class ImagenController extends Controller
      * @param  \App\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Imagen $imagen)
+    public function destroy($id,Request $request)
     {
         $imagen = Ima::findOrFail($id);
         $imagen->delete();

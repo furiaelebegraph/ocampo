@@ -6,7 +6,7 @@ use App\Banner;
 use Illuminate\Http\Request;
 use Image;
 
-class BaneerController extends Controller
+class BannerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -69,7 +69,7 @@ class BaneerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function show(Banner $banner)
+    public function show(B$id,Request $request)
     {
         $title = 'Mostrar Banner';
 
@@ -88,7 +88,7 @@ class BaneerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function edit(Banner $banner)
+    public function edit($id,Request $request)
     {
         $banner = Banner::findOrfail($id);
         return view('banner.edit',compact('banner'));
@@ -101,7 +101,8 @@ class BaneerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Banner $banner)
+    public function update($id,Request $request){
+
             $banner = Banner::findOrfail($id);
             if ($request->hasFile('imagen')) {
                 $imagen = $request->file('imagen');
@@ -134,7 +135,7 @@ class BaneerController extends Controller
      * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Banner $banner)
+    public function destroy($id,Request $request)
     {
         $banner = Banner::find($id);
         $banner->delete();

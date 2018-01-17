@@ -18,7 +18,7 @@ Route::group(['prefix' => 'adminis'], function(){
 });
 
 Route::group(['middleware'=> 'auth'],function(){
-  Route::resource('noticia','cateController', ['only' => ['create', 'store', 'index', 'edit']]);
+  Route::resource('noticia','NoticiaController', ['only' => ['create', 'store', 'index', 'edit']]);
   Route::post('noticia/{id}/update','NoticiaController@update');
   Route::get('noticia/{id}/delete','NoticiaController@destroy');
   Route::get('noticia/{id}/deleteMsg','NoticiaController@DeleteMsg');
@@ -32,14 +32,14 @@ Route::group(['middleware'=> 'auth'],function(){
 });
 
 Route::group(['middleware'=> 'auth'],function(){
-  Route::resource('galeria','InmuebleController', ['only' => ['create', 'store', 'index', 'edit']]);
+  Route::resource('galeria','GaleriaController', ['only' => ['create', 'store', 'index', 'edit']]);
   Route::post('galeria/{id}/update','GaleriaController@update');
   Route::get('galeria/{id}/delete','GaleriaController@destroy');
   Route::get('galeria/{id}/deleteMsg','GaleriaController@DeleteMsg');
 });
 
 Route::group(['middleware'=> 'auth'],function(){
-  Route::resource('imagen','imaController', ['only' => ['store', 'index', 'edit']]);
+  Route::resource('imagen','ImagenController', ['only' => ['store', 'index', 'edit']]);
   Route::post('imagen/cargarGale', 'ImagenController@cargarGaleria');
   Route::get('imagen/create/{id}', 'ImagenController@create');
   Route::post('imagen/{id}/update','ImagenController@update');
@@ -55,10 +55,6 @@ Route::get('/ajax_categoria/{id}', 'WelcomeController@ajaxCategoria');
 
 Route::get('/ajaxDetalle/{id}', 'WelcomeController@ajaxDetalle');
 
-Route::get('categoria/{id}', 'cateController@show');
-
 Route::get('banner/{id}', 'BannerController@show');
-
-Route::get('inmueble/{id}', 'InmuebleController@show');
 
 Route::get('/home', 'HomeController@index')->name('home');

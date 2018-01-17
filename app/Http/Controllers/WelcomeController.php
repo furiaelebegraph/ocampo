@@ -25,7 +25,7 @@ class WelcomeController extends Controller
         $categorias = Cate::all();
         $banners = Banner::BannerActivo();
         $inmuebles = Noticia::where('activo', '=', 'si')->orderBy('created_at', 'desc')->paginate(9);
-        $galerias = Inmueble::orderBy('created_at', 'desc')->first();
+        $galerias = galerias::orderBy('created_at', 'desc')->first();
         return view('welcome', compact('categorias', 'galerias', 'inmuebles', 'banners','inmueblis'));
     }
     /**
