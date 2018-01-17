@@ -34,7 +34,7 @@
                         Editar Inmueble
                     </h1>
                     <form method = 'get' action = '{!!url("inmueble")!!}'>
-                        <button class = 'btn btn-danger'>Ver Inmuebles</button>
+                        <button class = 'btn btn-danger'>Ver galerias</button>
                     </form>
                     <br>
                     <form method = 'POST' action = '{!! url("inmueble")!!}/{!!$inmueble->

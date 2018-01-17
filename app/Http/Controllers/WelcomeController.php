@@ -24,9 +24,9 @@ class WelcomeController extends Controller
 
         $categorias = Cate::all();
         $banners = Banner::BannerActivo();
-        $inmuebles = Noticia::where('activo', '=', 'si')->orderBy('created_at', 'desc')->paginate(9);
+        $galerias = Noticia::where('activo', '=', 'si')->orderBy('created_at', 'desc')->paginate(9);
         $galerias = galerias::orderBy('created_at', 'desc')->first();
-        return view('welcome', compact('categorias', 'galerias', 'inmuebles', 'banners','inmueblis'));
+        return view('welcome', compact('categorias', 'galerias', 'galerias', 'banners','inmueblis'));
     }
     /**
      * Show the form for creating a new resource.
@@ -36,14 +36,14 @@ class WelcomeController extends Controller
 
     public function showPaginacion(Request $request)
     {
-        $inmuebles = Inmueble::paginate(9);
-        return view('inmueble.data')->with('inmuebles', $inmuebles);
+        $galerias = Inmueble::paginate(9);
+        return view('inmueble.data')->with('galerias', $galerias);
     }
 
 
     public function ajaxCategoria($id){
-        $inmuebles = Inmueble::obtenerCatego($id);
-        return view('inmueble.data')->with('inmuebles', $inmuebles);
+        $galerias = Inmueble::obtenerCatego($id);
+        return view('inmueble.data')->with('galerias', $galerias);
     }
 
     public function ajaxDetalle($id){

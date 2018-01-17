@@ -1,6 +1,6 @@
             <div class="col-11 col-sm-10 col-md-8 col-lg-7 p-t-30 p-b-30">
                 <div class="row cambio justify-content-center align-items-center ">
-                    @foreach($inmuebles as $inmueble)
+                    @foreach($galerias as $inmueble)
                         <div class="col-11 col-sm-6 col-md-4 seleccion p-t-10 p-b-10 ">
                             <a data-fancybox data-type="ajax" data-src="ajaxDetalle/{{$inmueble->id}}" href="javascript:;">
                                 <div class='al_100 img__wrap'>
@@ -24,5 +24,5 @@
             </div>
 
             <div class="col-7 alineado_der">
-                    {{$inmuebles->render()}}
+                    {{$galerias->render()}}
             </div>

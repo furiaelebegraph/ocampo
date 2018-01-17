@@ -15,8 +15,8 @@ class ImagenController extends Controller
     public function index()
     {
         $title = 'Index - Imagenes';
-        $inmuebles = Inmueble::all();
-        return view('imagen.index', compact('inmuebles', 'title'));
+        $galerias = Inmueble::all();
+        return view('imagen.index', compact('galerias', 'title'));
     }
 
     /**
@@ -111,7 +111,7 @@ class ImagenController extends Controller
 
                 $imagen->nombre = $request->nombre;
 
-                $imagen->inmueble_id = $request->inmuebles_id;
+                $imagen->inmueble_id = $request->galerias_id;
 
                 $imagen->orden = $request->orden;
 

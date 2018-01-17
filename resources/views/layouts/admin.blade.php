@@ -64,7 +64,7 @@
             <a class="nav-link" href="{{route('inmueble.index')}}">
               <i class="fa fa-fw fa-wrench"></i>
               <span class="nav-link-text">
-                Inmuebles ({{$inmuebles->count()}})</span>
+                galerias ({{$galerias->count()}})</span>
             </a>
           </li>
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">

@@ -70,11 +70,11 @@
                   <i class="fa fa-home" aria-hidden="true"></i>
                 </div>
                 <div class="mr-5">
-                  {{$inmuebles->count()}} inmuebles
+                  {{$galerias->count()}} galerias
                 </div>
               </div>
                 <a href="{{url('inmueble')}}" class="card-footer text-white clearfix small z-1">
-                    <span class="float-left">Ver todas los inmuebles</span>
+                    <span class="float-left">Ver todas los galerias</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>
@@ -98,7 +98,7 @@
 
                 <!-- Example Social Card -->
                <div class="row">
-                @foreach($ultimoinmuebles as $ultimoinmueble)
+                @foreach($ultimogalerias as $ultimoinmueble)
                   <div class="col-4">
                       <div class="card mb-3">
                             <a href="/inmueble/{!!$ultimoinmueble->id!!}">
