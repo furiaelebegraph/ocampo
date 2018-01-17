@@ -23,6 +23,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $categorias = Cate::all();
+        $inmuebles = Inmueble::all();
+        $banners = Banner::all();
+
+        $inmuesbles = Inmueble::orderBy('created_at','desc')->take(5)->get();
+        $ultimoinmuebles = Inmueble::orderBy('created_at','desc')->take(3)->get();
+        $ultimacates = Cate::orderBy('created_at','desc')->take(3)->get();
+        return view('home', compact('categorias', 'inmuebles', 'inmuesbles', 'ultimoinmuebles', 'ultimacates', 'banners'));
+    }
+    public function layoutAdmin(){
+        $categorias = Cate::all();
+        $inmueble = Inmueble::all();
+        return view('layouts.admin', compact('categorias', 'inmueble'));     
     }
 }

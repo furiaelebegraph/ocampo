@@ -14,7 +14,9 @@ class ImagenController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Index - Imagenes';
+        $inmuebles = Inmueble::all();
+        return view('imagen.index', compact('inmuebles', 'title'));
     }
 
     /**
@@ -24,7 +26,9 @@ class ImagenController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Crear Galeria';
+        $inmueble = Inmueble::findOrfail($id);
+        return view('imagen.create', compact('title', 'inmueble'));
     }
 
     /**
@@ -35,7 +39,27 @@ class ImagenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+            $imagen = new Ima();
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                $filename = time().'.'.$imagen->getClientOriginalExtension();
+                $path = 'img/ima/'.$filename;
+                Image::make($imagen)->resize(null, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->save($path);
+
+                $imagen->imagen = 'img/ima/'.$filename;
+            }
+
+                $imagen->nombre = $request->nombre;
+
+                $imagen->galeria_id = $request->galeria_id;
+
+                $imagen->save();
+
+                return redirect('imagen');
     }
 
     /**
@@ -46,7 +70,9 @@ class ImagenController extends Controller
      */
     public function show(Imagen $imagen)
     {
-        //
+        $imagen = Ima::findOrfail($id);
+        $inmueble = Galeria::all();
+        return view('imagen.edit',compact('imagen', 'inmueble'));
     }
 
     /**
@@ -57,7 +83,9 @@ class ImagenController extends Controller
      */
     public function edit(Imagen $imagen)
     {
-        //
+        $imagen = Ima::findOrfail($id);
+        $inmueble = Galeria::all();
+        return view('imagen.edit',compact('imagen', 'inmueble'));
     }
 
     /**
@@ -69,7 +97,30 @@ class ImagenController extends Controller
      */
     public function update(Request $request, Imagen $imagen)
     {
-        //
+            $imagen = Ima::findOrfail($id);
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                $filename = time().'.'.$imagen->getClientOriginalExtension();
+                $path = 'img/ima/'.$filename;
+                Image::make($imagen)->resize(null, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->save($path);
+
+                $imagen->imagen = 'img/ima/'.$filename;
+            }
+
+                $imagen->nombre = $request->nombre;
+
+                $imagen->inmueble_id = $request->inmuebles_id;
+
+                $imagen->orden = $request->orden;
+
+                $imagen->activo = $request->activo;
+
+                $imagen->save();
+
+                return redirect('imagen');
     }
 
     /**
@@ -80,6 +131,8 @@ class ImagenController extends Controller
      */
     public function destroy(Imagen $imagen)
     {
-        //
+        $imagen = Ima::findOrFail($id);
+        $imagen->delete();
+        return back()->with('info', 'Fue eliminado exitosamente');
     }
 }

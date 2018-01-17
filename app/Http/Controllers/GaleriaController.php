@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Galeria;
+use App\Imagen;
 use Illuminate\Http\Request;
 
 class GaleriaController extends Controller
@@ -14,7 +15,9 @@ class GaleriaController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Index - Imagenes';
+        $inmuebles = Galeria::all();
+        return view('galeria.index', compact('inmuebles', 'title'));
     }
 
     /**
@@ -24,7 +27,9 @@ class GaleriaController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Crear Galeria';
+        $inmueble = Galeria::findOrfail($id);
+        return view('galeria.create', compact('title', 'inmueble'));
     }
 
     /**
@@ -35,7 +40,30 @@ class GaleriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $imagen = new Ima();
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                $filename = time().'.'.$imagen->getClientOriginalExtension();
+                $path = 'img/galeria/'.$filename;
+                Image::make($imagen)->resize(null, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->save($path);
+
+                $imagen->imagen = 'img/galeria/'.$filename;
+            }
+
+                $imagen->nombre = $request->nombre;
+
+                $imagen->inmueble_id = $request->inmuebles_id;
+
+                $imagen->orden = $request->orden;
+
+                $imagen->activo = $request->activo;
+
+                $imagen->save();
+
+                return redirect('galeria');
     }
 
     /**
@@ -44,9 +72,11 @@ class GaleriaController extends Controller
      * @param  \App\Galeria  $galeria
      * @return \Illuminate\Http\Response
      */
-    public function show(Galeria $galeria)
+    public function show($id,Request $request)
     {
-        //
+        $imagen = Galeria::findOrfail($id);
+        $inmueble = Imagen::all();
+        return view('galeria.edit',compact('imagen', 'inmueble'));
     }
 
     /**
@@ -55,9 +85,10 @@ class GaleriaController extends Controller
      * @param  \App\Galeria  $galeria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Galeria $galeria)
+    public function edit($id,Request $request)
     {
-        //
+        $imagen = Galeria::findOrfail($id);
+        return view('galeria.edit',compact('imagen'));
     }
 
     /**
@@ -67,9 +98,44 @@ class GaleriaController extends Controller
      * @param  \App\Galeria  $galeria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Galeria $galeria)
+    public function update($id,Request $request)
     {
-        //
+            $inmueble = new Galeria();
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                $filename = time().'.'.$imagen->getClientOriginalExtension();
+                $path = 'img/galeria/'.$filename;
+                Image::make($imagen)->resize(null, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->save($path);
+
+                $galeria->imagen = 'img/galeria/'.$filename;
+            }
+                $galeria->nombre = $request->nombre;
+                $galeria->orden = $request->alter;
+                $galeria->activo = $request->activo;
+                $galeria->descripcion = $request->descripcion;
+                $galeria->save();
+                $photos = $request->file('photos');
+                if (!empty($photos)) {
+                    foreach ($photos as $indexPhoto=>$photo) {
+                        $nombre = $inmueble->nombre.'_'.$indexPhoto.'_'.$photo->hashName();
+                        $path = 'img/ima/'.$nombre;
+                        $imagenes = new Imagen();
+                        Image::make($photo)->resize(null, 400, function ($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        })->save($path);
+                        $imagenes->inmueble_id = $galeria->id;
+                        $imagenes->imagen = $path;
+                        $imagenes->nombre =  $inmueble->nombre.'_'.$indexPhoto.'_'.$photo->hashName();
+                        $imagenes->orden = $indexPhoto;
+                        $imagenes->save();
+                    }
+                }
+
+                return redirect('inmueble');
     }
 
     /**
@@ -80,6 +146,8 @@ class GaleriaController extends Controller
      */
     public function destroy(Galeria $galeria)
     {
-        //
+        $imagen = Ima::findOrFail($id);
+        $imagen->delete();
+        return back()->with('info', 'Fue eliminado exitosamente');
     }
 }

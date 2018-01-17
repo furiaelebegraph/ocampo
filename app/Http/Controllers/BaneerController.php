@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Banner;
 use Illuminate\Http\Request;
+use Image;
 
 class BaneerController extends Controller
 {
@@ -14,7 +15,9 @@ class BaneerController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Index - Banner';
+        $banners = Banner::paginate(10);
+        return view('banner.index', compact('banners'));
     }
 
     /**
@@ -24,7 +27,8 @@ class BaneerController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Crear Banner';
+        return view('banner.create', compact('title', 'company'));
     }
 
     /**
@@ -35,7 +39,28 @@ class BaneerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+            $banner = new Banner();
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                $filename = time().'.'.$imagen->getClientOriginalExtension();
+                $path = 'img/banner/'.$filename;
+                Image::make($imagen)->resize(null, 1000, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->save($path);
+
+                $banner->imagen = 'img/banner/'.$filename;
+            }
+
+                $banner->nombre = $request->nombre;
+
+                $banner->activo = $request->sino;
+
+                $banner->orden = $request->alter;
+
+                $banner->save();
+
+                return redirect('banner');
     }
 
     /**
@@ -46,7 +71,15 @@ class BaneerController extends Controller
      */
     public function show(Banner $banner)
     {
-        //
+        $title = 'Mostrar Banner';
+
+        if($request->ajax())
+        {
+            return URL::to('banner/'.$id);
+        }
+
+        $banner = Banner::findOrfail($id);
+        return view('banner.show',compact('title','banner'));
     }
 
     /**
@@ -57,7 +90,8 @@ class BaneerController extends Controller
      */
     public function edit(Banner $banner)
     {
-        //
+        $banner = Banner::findOrfail($id);
+        return view('banner.edit',compact('banner'));
     }
 
     /**
@@ -68,8 +102,30 @@ class BaneerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Banner $banner)
-    {
-        //
+            $banner = Banner::findOrfail($id);
+            if ($request->hasFile('imagen')) {
+                $imagen = $request->file('imagen');
+                $filename = time().'.'.$imagen->getClientOriginalExtension();
+                $path = 'img/banner/'.$filename;
+                Image::make($imagen)->resize(null, 400, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->save($path);
+
+                $banner->imagen = 'img/banner/'.$filename;
+            }else{
+
+            }
+
+                $banner->nombre = $request->nombre;
+
+                $banner->activo = $request->activo;
+
+                $banner->orden = $request->orden;
+
+                $banner->save();
+
+                return redirect('banner');
     }
 
     /**
@@ -80,6 +136,8 @@ class BaneerController extends Controller
      */
     public function destroy(Banner $banner)
     {
-        //
+        $banner = Banner::find($id);
+        $banner->delete();
+        return back()->with('info', 'Fue eliminado exitosamente');
     }
 }
