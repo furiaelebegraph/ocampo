@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Imagen;
+use App\Galeria;
+use App\Banner;
+use App\Noticia;
 
 class HomeController extends Controller
 {
@@ -23,18 +27,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categorias = Cate::all();
-        $inmuebles = Inmueble::all();
+        $galerias = Galeria::all();
         $banners = Banner::all();
+        $noticias = Noticia::all();
 
-        $inmuesbles = Inmueble::orderBy('created_at','desc')->take(5)->get();
-        $ultimoinmuebles = Inmueble::orderBy('created_at','desc')->take(3)->get();
-        $ultimacates = Cate::orderBy('created_at','desc')->take(3)->get();
-        return view('home', compact('categorias', 'inmuebles', 'inmuesbles', 'ultimoinmuebles', 'ultimacates', 'banners'));
+        $ultimagalerias = Galeria::orderBy('created_at','desc')->take(5)->get();
+        $ultimosbanners = Banner::orderBy('created_at','desc')->take(3)->get();
+        $ultimasnoticias = Noticia::orderBy('created_at','desc')->take(3)->get();
+        return view('home', compact('noticias','galerias', 'banners', 'ultimagalerias', 'ultimosbanners', 'ultimasnoticias'));
     }
     public function layoutAdmin(){
         $categorias = Cate::all();
         $inmueble = Inmueble::all();
-        return view('layouts.admin', compact('categorias', 'inmueble'));     
+        return view('layouts.admin', compact('categorias', 'inmueble'));
     }
 }

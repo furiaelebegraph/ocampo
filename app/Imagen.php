@@ -15,6 +15,6 @@ class Imagen extends Model
     }
 	protected $table = 'ima';
     protected $fillable = [
-        'nombre','imagen', 'inmueble_id', 'orden', 'activo'
+        'nombre','imagen', 'galeria_id', 'orden', 'activo'
     ];
 }
