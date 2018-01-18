@@ -22,17 +22,17 @@
                   <i class="fa fa-list" aria-hidden="true"></i>
                 </div>
                 <div class="mr-5">
-                  {{$categorias->count()}} Categorias <br>
+                  {{$galeria->count()}} Galeria <br>
                 </div>
               </div>
-              <a href="{{url('categoria')}}" class="card-footer text-white clearfix small z-1">
-                <span class="float-left">Ver todas las Categorias</span>
+              <a href="{{url('galeria')}}" class="card-footer text-white clearfix small z-1">
+                <span class="float-left">Ver todas las Galerias</span>
                 <span class="float-right">
                   <i class="fa fa-angle-right"></i>
                 </span>
               </a>
-                <a href="{{route('categoria.create')}}" class="card-footer text-white clearfix small z-1">
-                    <span class="float-left">NUEVA Categoria</span>
+                <a href="{{route('galeria.create')}}" class="card-footer text-white clearfix small z-1">
+                    <span class="float-left">NUEVA Galeria</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>
