@@ -15,8 +15,8 @@ class NoticiaController extends Controller
     public function index()
     {
         $title = 'Index - Imagenes';
-        $galerias = Inmueble::all();
-        return view('noticia.index', compact('galerias', 'title'));
+        $noticias = Noticia::all();
+        return view('noticia.index', compact('noticias', 'title'));
     }
 
     /**
@@ -27,8 +27,8 @@ class NoticiaController extends Controller
     public function create()
     {
         $title = 'Crear Galeria';
-        $inmueble = Inmueble::findOrfail($id);
-        return view('noticia.create', compact('title', 'inmueble'));
+        $noticia = Noticia::findOrfail($id);
+        return view('noticia.create', compact('title', 'noticia'));
     }
 
     /**
@@ -39,7 +39,7 @@ class NoticiaController extends Controller
      */
     public function store(Request $request)
     {
-            $imagen = new Ima();
+            $noticia = new Noticia();
             if ($request->hasFile('imagen')) {
                 $imagen = $request->file('imagen');
                 $filename = time().'.'.$imagen->getClientOriginalExtension();
@@ -49,18 +49,18 @@ class NoticiaController extends Controller
                     $constraint->upsize();
                 })->save($path);
 
-                $imagen->imagen = 'img/ima/'.$filename;
+                $noticia->imagen = 'img/noticia/'.$filename;
             }
 
-                $imagen->nombre = $request->nombre;
+                $noticia->nombre = $request->nombre;
 
-                $imagen->inmueble_id = $request->galerias_id;
+                $noticia->inmueble_id = $request->galerias_id;
 
-                $imagen->orden = $request->orden;
+                $noticia->orden = $request->orden;
 
-                $imagen->activo = $request->activo;
+                $noticia->activo = $request->activo;
 
-                $imagen->save();
+                $noticia->save();
 
                 return redirect('noticia');
     }
@@ -73,9 +73,8 @@ class NoticiaController extends Controller
      */
     public function show($id,Request $request)
     {
-        $imagen = Ima::findOrfail($id);
-        $inmueble = Inmueble::all();
-        return view('noticia.edit',compact('imagen', 'inmueble'));
+        $noticia = Noticia::findOrfail($id);
+        return view('noticia.edit',compact('noticia'));
     }
 
     /**
@@ -86,8 +85,7 @@ class NoticiaController extends Controller
      */
     public function edit($id,Request $request)
     {
-        $imagen = Ima::findOrfail($id);
-        $inmueble = Inmueble::all();
+        $inmueble = Noticia::findOrfail($id);
         return view('noticia.edit',compact('imagen', 'inmueble'));
     }
 

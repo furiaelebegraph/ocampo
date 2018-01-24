@@ -15,7 +15,7 @@ class ImagenController extends Controller
     public function index()
     {
         $title = 'Index - Imagenes';
-        $galerias = Inmueble::all();
+        $galerias = Imagen::all();
         return view('imagen.index', compact('galerias', 'title'));
     }
 
@@ -27,7 +27,7 @@ class ImagenController extends Controller
     public function create()
     {
         $title = 'Crear Galeria';
-        $inmueble = Inmueble::findOrfail($id);
+        $inmueble = Imagen::findOrfail($id);
         return view('imagen.create', compact('title', 'inmueble'));
     }
 
@@ -40,7 +40,7 @@ class ImagenController extends Controller
     public function store(Request $request)
     {
 
-            $imagen = new Ima();
+            $imagen = new Imagen();
             if ($request->hasFile('imagen')) {
                 $imagen = $request->file('imagen');
                 $filename = time().'.'.$imagen->getClientOriginalExtension();
@@ -69,7 +69,7 @@ class ImagenController extends Controller
      */
     public function show($id,Request $request)
     {
-        $imagen = Ima::findOrfail($id);
+        $imagen = Imagen::findOrfail($id);
         $inmueble = Galeria::all();
         return view('imagen.edit',compact('imagen', 'inmueble'));
     }
@@ -82,7 +82,7 @@ class ImagenController extends Controller
      */
     public function edit($id,Request $request)
     {
-        $imagen = Ima::findOrfail($id);
+        $imagen = Imagen::findOrfail($id);
         $inmueble = Galeria::all();
         return view('imagen.edit',compact('imagen', 'inmueble'));
     }
@@ -96,7 +96,7 @@ class ImagenController extends Controller
      */
     public function update($id,Request $request)
     {
-            $imagen = Ima::findOrfail($id);
+            $imagen = Imagen::findOrfail($id);
             if ($request->hasFile('imagen')) {
                 $imagen = $request->file('imagen');
                 $filename = time().'.'.$imagen->getClientOriginalExtension();
@@ -130,7 +130,7 @@ class ImagenController extends Controller
      */
     public function destroy($id,Request $request)
     {
-        $imagen = Ima::findOrFail($id);
+        $imagen = Imagen::findOrFail($id);
         $imagen->delete();
         return back()->with('info', 'Fue eliminado exitosamente');
     }

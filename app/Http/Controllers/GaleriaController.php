@@ -40,30 +40,42 @@ class GaleriaController extends Controller
      */
     public function store(Request $request)
     {
-            $imagen = new Ima();
-            if ($request->hasFile('imagen')) {
-                $imagen = $request->file('imagen');
-                $filename = time().'.'.$imagen->getClientOriginalExtension();
-                $path = 'img/galeria/'.$filename;
-                Image::make($imagen)->resize(null, 400, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })->save($path);
+      $galeria = new Galeria();
+      if ($request->hasFile('imagen')) {
+          $imagen = $request->file('imagen');
+          $filename = time().'.'.$imagen->getClientOriginalExtension();
+          $path = 'img/galeria/'.$filename;
+          Image::make($imagen)->resize(null, 600, function ($constraint) {
+              $constraint->aspectRatio();
+              $constraint->upsize();
+          })->save($path);
 
-                $imagen->imagen = 'img/galeria/'.$filename;
-            }
+          $galeria->imagen = 'img/galeria/'.$filename;
+      }
+          $galeria->nombre = $request->nombre;
+          $galeria->orden = $request->alter;
+          $galeria->activo = $request->activo;
+          $galeria->descripcion = $request->descripcion;
+          $galeria->save();
+          $photos = $request->file('photos');
+          if (!empty($photos)) {
+              foreach ($photos as $indexPhoto=>$photo) {
+                  $nombre = $inmueble->nombre.'_'.$indexPhoto.'_'.$photo->hashName();
+                  $path = 'img/ima/'.$nombre;
+                  $imagenes = new Imagen();
+                  Image::make($photo)->resize(null, 600, function ($constraint) {
+                      $constraint->aspectRatio();
+                      $constraint->upsize();
+                  })->save($path);
+                  $imagenes->inmueble_id = $galeria->id;
+                  $imagenes->imagen = $path;
+                  $imagenes->nombre =  $inmueble->nombre.'_'.$indexPhoto.'_'.$photo->hashName();
+                  $imagenes->orden = $indexPhoto;
+                  $imagenes->save();
+              }
+          }
 
-                $imagen->nombre = $request->nombre;
-
-                $imagen->inmueble_id = $request->galerias_id;
-
-                $imagen->orden = $request->orden;
-
-                $imagen->activo = $request->activo;
-
-                $imagen->save();
-
-                return redirect('galeria');
+          return redirect('inmueble');
     }
 
     /**
@@ -74,9 +86,9 @@ class GaleriaController extends Controller
      */
     public function show($id,Request $request)
     {
-        $imagen = Galeria::findOrfail($id);
-        $inmueble = Imagen::all();
-        return view('galeria.edit',compact('imagen', 'inmueble'));
+        $galeria = Galeria::findOrfail($id);
+        $imagen = Imagen::all();
+        return view('galeria.edit',compact('galeria', 'imagen'));
     }
 
     /**
@@ -87,8 +99,8 @@ class GaleriaController extends Controller
      */
     public function edit($id,Request $request)
     {
-        $imagen = Galeria::findOrfail($id);
-        return view('galeria.edit',compact('imagen'));
+        $galeria = Galeria::findOrfail($id);
+        return view('galeria.edit',compact('galeria'));
     }
 
     /**
@@ -100,12 +112,12 @@ class GaleriaController extends Controller
      */
     public function update($id,Request $request)
     {
-            $inmueble = new Galeria();
+            galeria = Galeria::findOrfail($id);
             if ($request->hasFile('imagen')) {
                 $imagen = $request->file('imagen');
                 $filename = time().'.'.$imagen->getClientOriginalExtension();
                 $path = 'img/galeria/'.$filename;
-                Image::make($imagen)->resize(null, 400, function ($constraint) {
+                Image::make($imagen)->resize(null, 600, function ($constraint) {
                     $constraint->aspectRatio();
                     $constraint->upsize();
                 })->save($path);
@@ -123,7 +135,7 @@ class GaleriaController extends Controller
                         $nombre = $inmueble->nombre.'_'.$indexPhoto.'_'.$photo->hashName();
                         $path = 'img/ima/'.$nombre;
                         $imagenes = new Imagen();
-                        Image::make($photo)->resize(null, 400, function ($constraint) {
+                        Image::make($photo)->resize(null, 600, function ($constraint) {
                             $constraint->aspectRatio();
                             $constraint->upsize();
                         })->save($path);
